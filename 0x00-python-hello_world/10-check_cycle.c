@@ -1,22 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "lists.h"
+
 /**
- * check_cycle - checks for cycle in a linked list
- * @list: linked list to check
- * Return: 1 if cycle, 0 if not
+ * check_cycle - checks if a singly linked list has a cycle in it
+ * @list: list to check
+ * Return: 1 if there is cycle, 0 if not
  */
+
 int check_cycle(listint_t *list)
 {
-  listint_t *temp1 = NULL, *temp2 = NULL;
+  listint_t *tort = list, *hare = list;
 
-  temp1 = list;
-  temp2 = list;
+  if (list == NULL)
+    return (0);
 
-  while (list)
+  while (hare && hare->next)
     {
-      temp2 = temp2->next;
-      if (!temp1 || !temp2)
-	return (0);
-      if (temp2 == temp1)
+      hare = hare->next->next;
+      tort = tort->next;
+      if (tort == hare)
 	return (1);
     }
   return (0);
