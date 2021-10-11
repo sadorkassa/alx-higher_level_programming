@@ -1,28 +1,58 @@
-Prints the list, but sorted in ascending sort
-=============================================
-the class inherits from list
+The ``1-my_list`` module
+======================
 
-assumes all given values are of type int
+Using ``my_list``
+-------------------
+Checking docstring for module:
+>>> __import__('1-my_list').__doc__ != None
+True
 
-    >>> MyList = __import__('1-my_list').MyList
+>>> MyList = __import__('1-my_list').MyList
 
-    basic list
-    >>> MyList.print_sorted([1, 4, 2, 3, 5])
-    [1, 2, 3, 4, 5]
+>>> len(MyList.__doc__) > 0
+True
 
-    empty list
-    >>> MyList.print_sorted([])
-    []
+checking empty object
+>>> my_list = MyList()
+>>> print(my_list)
+[]
+>>> my_list.print_sorted()
+[]
 
-    list with one element
-    >>> MyList.print_sorted([9])
-    [9]
+checking an instance my_list with 3 elements
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(4)
+>>> my_list.append(2)
+>>> print(my_list)
+[1, 4, 2]
+>>> my_list.print_sorted()
+[1, 2, 4]
 
-    first element larger
-    >>> MyList.print_sorted([9, 4, 2, 3, 5])
-    [2, 3, 4, 5, 9]
+checking an instance my_list with 3 elements equales
+>>> my_list = MyList()
+>>> my_list.append(2)
+>>> my_list.append(2)
+>>> my_list.append(2)
+>>> print(my_list)
+[2, 2, 2]
+>>> my_list.print_sorted()
+[2, 2, 2]
 
-    list has a string
-    >>> MyList.print_sorted([1, 4, 2, 3, "5"])
-    Traceback (most recent call last):
-    TypeError: '<' not supported between instances of 'str' and 'int'
+checking an instance my_list with 1 elements
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> print(my_list)
+[1]
+>>> my_list.print_sorted()
+[1]
+
+checking negative elements
+>>> my_list = MyList()
+>>> my_list.append(-2)
+>>> my_list.append(-12)
+>>> my_list.append(-5)
+>>> print(my_list)
+[-2, -12, -5]
+>>> my_list.print_sorted()
+[-12, -5, -2]
