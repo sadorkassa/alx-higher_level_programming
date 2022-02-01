@@ -1,28 +1,49 @@
 #!/usr/bin/node
-let request = require('request');
-let episodeNumber = process.argv[2];
-let url = 'http://swapi.co/api/films/' + episodeNumber;
-request(url, function (err, response, body) {
-  if (err) {
-    console.log(err);
-  } else if (response.statusCode === 200) {
-    let charDict = {};
-    let allChars = JSON.parse(body).characters;
-    for (let c in allChars) {
-      request(allChars[c], function (err, response, body) {
-        if (err) {
-          console.log(err);
-        } else {
-          charDict[c] = JSON.parse(body).name;
-        }
-        if (allChars.length === Object.keys(charDict).length) {
-          for (let key in charDict) {
-            console.log(charDict[key]);
-          }
-        }
-      });
-    }
-  } else {
-    console.log('Wrong status code');
+
+const request = require('request');
+
+/*
+let characters = [];
+let dict = {};
+function addToDict (url, name) {
+  dict[url] = name;
+}
+request('http://swapi.co/api/films/' + process.argv[2], function (error, response, body) {
+  if (error) {
+    console.error(error);
   }
+  characters = JSON.parse(body).characters
+  characters.forEach(function (url) {
+    request(url, function (error, response, body) {
+      if (error) {
+        console.error(error);
+      }
+      addToDict(url, JSON.parse(body).name);
+    });
+  });
+  characters.forEach(function (item) {
+    console.log(dict[item]);
+  })
+});
+*/
+
+function helpRequest (arr, i) {
+  if (i === arr.length) {
+    return;
+  }
+  request(arr[i], function (error, response, body) {
+    if (error) {
+      console.error(error);
+    }
+    console.log(JSON.parse(body).name);
+    helpRequest(arr, i + 1);
+  });
+}
+
+request('http://swapi.co/api/films/' + process.argv[2], function (error, response, body) {
+  if (error) {
+    console.error(error);
+  }
+  const charac = JSON.parse(body).characters;
+  helpRequest(charac, 0);
 });
